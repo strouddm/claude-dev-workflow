@@ -1,0 +1,76 @@
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# Personal project data
+projects/*/
+!projects/README.md
+
+# Scratchpad data (contains work in progress)
+scratchpad/*/
+!scratchpad/README.md
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Shell history
+.bash_history
+.zsh_history
+
+# Environment files
+.env
+.env.local
+
+# Personal configuration
+personal-config/
+
+# Session data
+*.jsonl
+!templates/**/*.jsonl
+
+# Shell snapshots
+shell-snapshots/
+
+# IDE specific
+*.iml
+.project
+.classpath
+.settings/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+ENV/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.nyc_output/
+.pytest_cache/
+
+# Build outputs
+build/
+dist/
+out/

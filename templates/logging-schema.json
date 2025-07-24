@@ -1,0 +1,80 @@
+{
+  "workflow_logging_schema": {
+    "version": "1.0",
+    "description": "Comprehensive logging system for Claude Workflow tracking",
+    "log_types": {
+      "work_tracking": {
+        "description": "Individual task and work item tracking",
+        "file": "logs/work-tracking.jsonl",
+        "schema": {
+          "timestamp": "ISO8601 datetime",
+          "issue_id": "GitHub issue number",
+          "agent": "PRODUCT_OWNER|ENGINEER|MANAGER",
+          "action": "Action performed",
+          "status": "pending|in_progress|completed|blocked",
+          "duration_ms": "Time taken for action",
+          "context": "Additional context object",
+          "metadata": "Tool outputs, file changes, etc."
+        }
+      },
+      "coordination": {
+        "description": "Inter-agent communication and handoffs",
+        "file": "logs/coordination.jsonl",
+        "schema": {
+          "timestamp": "ISO8601 datetime",
+          "type": "handoff|status_update|context_share|dependency",
+          "from_agent": "Source agent",
+          "to_agent": "Target agent",
+          "issue_id": "Related issue",
+          "message": "Coordination message",
+          "payload": "Data being passed",
+          "status": "success|pending|failed"
+        }
+      },
+      "task_execution": {
+        "description": "Detailed task execution within each agent",
+        "file": "logs/task-execution.jsonl",
+        "schema": {
+          "timestamp": "ISO8601 datetime",
+          "agent": "Agent performing task",
+          "issue_id": "Related issue",
+          "task_id": "Unique task identifier",
+          "task_type": "Type of task",
+          "phase": "planning|development|review",
+          "command": "Command being executed",
+          "tools_used": "Array of tools utilized", 
+          "input": "Task input parameters",
+          "output": "Task results",
+          "success": "boolean",
+          "error": "Error message if failed"
+        }
+      },
+      "workflow_state": {
+        "description": "Overall workflow state changes",
+        "file": "logs/workflow-state.jsonl",
+        "schema": {
+          "timestamp": "ISO8601 datetime",
+          "issue_id": "Issue being tracked",
+          "old_state": "Previous workflow state",
+          "new_state": "New workflow state",
+          "trigger": "What caused state change",
+          "agent": "Agent that triggered change",
+          "context": "Additional state context"
+        }
+      }
+    },
+    "log_levels": {
+      "DEBUG": "Detailed execution information",
+      "INFO": "Normal workflow operations", 
+      "WARN": "Potential issues or delays",
+      "ERROR": "Errors requiring attention",
+      "CRITICAL": "Workflow-breaking issues"
+    },
+    "agents": {
+      "PRODUCT_OWNER": "Business analysis and planning",
+      "ENGINEER": "Code implementation and testing",
+      "MANAGER": "Code review and quality assurance",
+      "SYSTEM": "Infrastructure and coordination"
+    }
+  }
+}
