@@ -16,7 +16,7 @@ Claude Dev Workflow transforms how software teams work by providing AI agents fo
 
 ### Key Features
 
-- **75% faster development cycles** (5-9 days → 1.5 days)
+- **Faster development cycles**
 - **Persistent scratchpad** maintains context between phases
 - **Resume capability** for interrupted work
 - **Progress tracking** across all active issues
