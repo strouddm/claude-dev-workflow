@@ -140,27 +140,6 @@ All commands automatically use your project context for consistent, aligned resu
 │   └── workflow-state.jsonl
 └── templates/                   # Configuration templates
 ```
-
-## Benefits
-
-### For Managers
-- **10x less coordination overhead**
-- **Real-time visibility** into all work
-- **Consistent quality** across team
-- **Automatic documentation** of decisions
-
-### For Developers
-- **No more planning meetings**
-- **Clear requirements** every time
-- **Faster feedback loops**
-- **Focus on coding**, not process
-
-### For Organizations
-- **75% faster delivery**
-- **90% fewer defects**
-- **100% traceable decisions**
-- **Scalable across teams**
-
 ## Configuration
 
 ### Environment Variables
@@ -190,15 +169,6 @@ Edit the instruction files in `~/.claude/commands/` to match your team's specifi
 | "Claude: command not found" | Ensure Claude CLI is installed |
 | "No plan found" | Run `cplan <issue>` first |
 | Scratchpad permission errors | Check `~/.claude/` permissions |
-
-## Performance Metrics
-
-Based on real-world usage:
-
-- Planning: 2 hours → 30 minutes (75% reduction)
-- Development: 3 days → 1 day (67% reduction)
-- Review: 4 hours → 1 hour (75% reduction)
-- Overall: 5-9 days → 1.5 days (75-83% reduction)
 
 ## Security Considerations
 
