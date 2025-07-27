@@ -64,7 +64,7 @@ project/workflow/
 
 - **Install once, use everywhere** - No per-project installation
 - **Project-specific context** - Each project has its own standards
-- **75-80% faster cycles** - From weeks to days
+- **Faster cycles** - From weeks to days
 - **Consistent quality** - AI follows your established patterns
 
 ## Prerequisites
@@ -85,4 +85,4 @@ project/workflow/
 
 ---
 
-Ready to transform your development workflow? Run `./install.sh` to get started!
+Run `./install.sh` to get started.
