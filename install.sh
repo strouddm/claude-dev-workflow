@@ -40,12 +40,29 @@ TEMPLATES_DIR="$(dirname "$0")/templates/project-documents"
 if [[ -d "$TEMPLATES_DIR" ]]; then
     mkdir -p ./workflow/context
     
-    [[ ! -f "./workflow/context/prd.md" ]] && cp "$TEMPLATES_DIR/prd-template.md" "./workflow/context/prd.md" 2>/dev/null || true
-    [[ ! -f "./workflow/context/tech-stack.md" ]] && cp "$TEMPLATES_DIR/tech-stack-template.md" "./workflow/context/tech-stack.md" 2>/dev/null || true
-    [[ ! -f "./workflow/context/coding-standards.md" ]] && cp "$TEMPLATES_DIR/coding-standards-template.md" "./workflow/context/coding-standards.md" 2>/dev/null || true
-    [[ ! -f "./workflow/context/project-charter.md" ]] && cp "$TEMPLATES_DIR/project-charter-template.md" "./workflow/context/project-charter.md" 2>/dev/null || true
+    # Copy each template with proper error handling
+    for template in "prd" "tech-stack" "coding-standards" "project-charter"; do
+        src_file="$TEMPLATES_DIR/${template}-template.md"
+        dst_file="./workflow/context/${template}.md"
+        
+        if [[ ! -f "$dst_file" ]]; then
+            if [[ -f "$src_file" ]]; then
+                if cp "$src_file" "$dst_file"; then
+                    echo "✅ Created ${template}.md from template"
+                else
+                    echo "⚠️  Warning: Failed to copy ${template} template"
+                fi
+            else
+                echo "⚠️  Warning: Template ${src_file} not found"
+            fi
+        else
+            echo "ℹ️  ${template}.md already exists, skipping"
+        fi
+    done
     
-    echo "✅ Created workflow context templates"
+    echo "✅ Workflow context setup complete"
+else
+    echo "⚠️  Warning: Templates directory not found at $TEMPLATES_DIR"
 fi
 
 # Update .gitignore if needed

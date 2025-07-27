@@ -53,9 +53,12 @@ fi
 echo "Adding files to git..."
 git add .
 
+# Determine version from CHANGELOG
+VERSION=$(grep -m 1 "^## Version" CHANGELOG.md | sed 's/## Version \([^ ]*\).*/\1/' || echo "2.0.0")
+
 # Create initial commit
 echo "Creating initial commit..."
-git commit -m "Initial commit: Claude Dev Workflow v2.0.0
+git commit -m "Initial commit: Claude Dev Workflow v${VERSION}
 
 - AI-powered development workflow with 3 agents
 - Automatic project context integration
@@ -93,8 +96,8 @@ git push -u origin main
 # Create initial release tag
 echo
 echo "Creating release tag..."
-git tag -a v2.0.0 -m "Release v2.0.0: Enhanced Project Context Integration"
-git push origin v2.0.0
+git tag -a "v${VERSION}" -m "Release v${VERSION}: Enhanced Project Context Integration"
+git push origin "v${VERSION}"
 
 # Display success message
 echo
@@ -106,7 +109,7 @@ echo
 echo "Next steps:"
 echo "   1. Visit your repository on GitHub"
 echo "   2. Add topics: ai, workflow, automation, development-tools"
-echo "   3. Create a release from tag v2.0.0"
+echo "   3. Create a release from tag v${VERSION}"
 echo "   4. Share with your team!"
 echo
 echo "Consider starring the repository if you find it useful!"

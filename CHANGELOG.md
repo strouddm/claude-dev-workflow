@@ -77,6 +77,10 @@ claude-dev-workflow/
 - **Zero manual context copying** between workflow phases
 - **Complete project alignment** for all AI agents
 
+### 📌 Version Note
+
+Version is tracked in this CHANGELOG file. The separate version file has been removed for simplicity.
+
 ---
 
 ## Version 1.0.0 - Initial Release
@@ -90,4 +94,7 @@ claude-dev-workflow/
 
 ---
 
-**Migration Guide**: Existing users should reinstall using the new `install.sh` script and run `cproject [name]` to setup project context.
+**Migration Guide**: Users upgrading from v1.0 should:
+1. Add `CLAUDE.md` to their project root
+2. Run `/init` in Claude Code to create workflow structure
+3. Configure project context files in `./workflow/context/`
