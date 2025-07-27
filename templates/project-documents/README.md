@@ -1,31 +1,29 @@
-# Project Documents Templates
+# Project Document Templates
 
-This directory contains templates for setting up project-specific context in the Claude Dev Workflow.
-
-## Quick Setup
-
-1. **Copy templates to your project directory**:
-   ```bash
-   export PROJECT_NAME="your-project-name"
-   mkdir -p ~/.claude/projects/$PROJECT_NAME
-   cp templates/project-documents/* ~/.claude/projects/$PROJECT_NAME/
-   ```
-
-2. **Customize each template** with your project's information
-
-3. **Update environment variables**:
-   ```bash
-   echo "export CLAUDE_PROJECT_NAME=\"$PROJECT_NAME\"" >> ~/.bashrc
-   source ~/.bashrc
-   ```
-
-## Template Files
-
-- `prd-template.md` - Product Requirements Document
-- `tech-stack-template.md` - Technical architecture and tools
-- `coding-standards-template.md` - Team coding conventions  
-- `project-charter-template.md` - Goals, constraints, and success metrics
+Templates for project-specific context in Claude Dev Workflow.
 
 ## Usage
 
-Once set up, all workflow commands (`cplan`, `cdev`, `creview`) will automatically incorporate your project context, ensuring consistent alignment with your project's goals and technical standards.
+These templates are automatically copied when you run `/setup` in any project.
+
+## Template Files
+
+- **prd-template.md** - Product Requirements Document
+- **tech-stack-template.md** - Technical architecture and technology choices
+- **coding-standards-template.md** - Team coding conventions and standards
+- **project-charter-template.md** - Project goals, constraints, and success metrics
+
+## Customization
+
+After running `/setup`, edit the files in your project's `workflow/context/` directory:
+
+```bash
+cd your-project
+/setup                           # Creates workflow/context/ with templates
+code workflow/context/prd.md    # Customize for your project
+code workflow/context/tech-stack.md
+code workflow/context/coding-standards.md
+code workflow/context/project-charter.md
+```
+
+These files provide context to all workflow agents (`/plan`, `/dev`, `/review`) ensuring consistent decisions aligned with your project standards.
