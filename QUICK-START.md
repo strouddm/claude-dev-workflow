@@ -1,148 +1,209 @@
 # Claude Dev Workflow - Quick Start Guide
 
 ## What This Does
-Automates your development workflow with 3 AI agents that understand your project:
-- Product Owner: Creates plans using your PRD and project goals
-- Engineer: Implements code following your tech stack and standards  
-- Manager: Reviews PRs against your project requirements
+Transforms your development process with AI agents that understand your project context, accessible through Claude Code slash commands. No global installation required - everything stays in your repository.
 
-## 5-Minute Setup
+**Three AI Agents:**
+- **Product Owner** (`/plan`) - Creates implementation plans using your PRD
+- **Engineer** (`/dev`) - Provides development guidance following your standards  
+- **Manager** (`/review`) - Reviews code against your project requirements
 
-### 1. Prerequisites
+## 1-Minute Setup
+
+### Step 1: Add to Your Project
 ```bash
-# Check you have these installed:
-claude --version  # Claude CLI
-gh --version      # GitHub CLI (optional)
+# Copy CLAUDE.md to your project root
+curl -o CLAUDE.md https://raw.githubusercontent.com/your-repo/claude-dev-workflow/main/CLAUDE.md
+
+# Or download and copy manually
 ```
 
-### 2. Install Claude Dev Workflow
+### Step 2: Initialize Workflow
 ```bash
-# Copy files
-cp -r claude-dev-workflow/* ~/.claude/
-
-# Install with project context support
-chmod +x ~/.claude/install.sh
-~/.claude/install.sh
-
-# Activate commands
-source ~/.bashrc  # or ~/.zshrc for zsh users
+# Open your project in Claude Code
+# Run in the terminal:
+/init
 ```
 
-### 3. Setup Your Project
-```bash
-# Create project structure with templates
-cproject my-awesome-app
-
-# This creates:
-# ~/.claude/projects/my-awesome-app/
-# ├── prd.md              # Product requirements (EDIT THIS)
-# ├── tech-stack.md       # Your technology choices (EDIT THIS)
-# ├── coding-standards.md # Team coding rules (EDIT THIS)
-# └── project-charter.md  # Goals and constraints (EDIT THIS)
+This creates:
+```
+workflow/
+├── context/            # Project configuration (version controlled)
+│   ├── prd.md         # Product Requirements (EDIT THIS)
+│   ├── tech-stack.md  # Technology Stack (EDIT THIS)
+│   ├── coding-standards.md # Coding Standards (EDIT THIS)
+│   └── project-charter.md # Project Goals (EDIT THIS)
+├── scratchpad/        # Issue work files (git ignored)
+├── logs/              # Activity logs (git ignored)
+└── epics/             # Epic planning
 ```
 
-### 4. Customize Project Documents
+### Step 3: Configure Your Project
 ```bash
-# Edit your project templates (IMPORTANT!)
-code ~/.claude/projects/my-awesome-app/prd.md
-code ~/.claude/projects/my-awesome-app/tech-stack.md
-code ~/.claude/projects/my-awesome-app/coding-standards.md
+# Edit these files to match your project:
+code ./workflow/context/prd.md
+code ./workflow/context/tech-stack.md
+code ./workflow/context/coding-standards.md
+code ./workflow/context/project-charter.md
 ```
 
-### 5. Test Installation
-```bash
-# Should show your active project
-cstatus
+**Important:** The agents are only as good as your project documentation!
 
-# Should show all commands with project context
-chelp
+## Your First Issue
+
+### Planning Phase
+```bash
+# Analyze GitHub issue #123 using your project context
+/plan 123
+```
+**What happens:**
+- Agent reads your PRD, tech stack, and project goals
+- Creates detailed implementation plan
+- Saves to `./workflow/scratchpad/issue-123/plan.md`
+- Shows: "📋 Plan created for issue #123"
+
+### Development Phase  
+```bash
+# Get implementation guidance following your standards
+/dev 123
+```
+**What happens:**
+- Agent reads the plan and your coding standards
+- Provides step-by-step development guidance
+- Includes branch naming, architecture patterns, testing approach
+- Saves to `./workflow/scratchpad/issue-123/development.md`
+
+### Review Phase
+```bash
+# Review PR #456 comprehensively against your project
+/review 456 123
+```
+**What happens:**
+- Agent reviews the PR using your project context
+- Checks code quality, architecture alignment, security
+- Provides prioritized feedback (Must Fix, Should Fix, Consider)
+- Saves to `./workflow/scratchpad/issue-123/review.md`
+
+## Checking Your Progress
+
+```bash
+# See workflow status
+/status
+
+# View all files for an issue
+/view 123
 ```
 
-## Your First Workflow
-
-### Step 1: Plan (Product Owner Agent)
-```bash
-# Agent analyzes GitHub issue #123 using your project context
-cplan 123
-
-# You'll see: "Using project context: my-awesome-app"
-# Creates plan aligned with your PRD and project goals
+**Example Status Output:**
 ```
+Workflow Status for: my-awesome-app
+✅ Initialized
 
-### Step 2: Develop (Engineer Agent)  
-```bash
-# Agent implements using your tech stack and coding standards
-cdev 123
-
-# Follows your architecture patterns and testing requirements
-# Creates code that matches your team's conventions
-```
-
-### Step 3: Review (Manager Agent)
-```bash
-# Agent reviews PR #456 against your project requirements
-creview 456 123
-
-# Checks alignment with your coding standards and business goals
-# Provides feedback based on your project criteria
+Active Issues:
+  Issue #123: [P][D][R]  # Plan, Development, Review complete
+  Issue #124: [P]        # Only planning done
+  Issue #125: [P][D]     # Plan and development done
 ```
 
 ## Key Benefits
 
-### Automatic Project Context
-- No manual context copying
-- Agents know your tech stack, standards, and goals
+### 🚀 **Instant Context**
+- No manual copying of requirements
+- Agents automatically know your tech stack
 - Consistent decisions across all team members
 
-### Intelligent Workflow
-- Plans reference your actual business requirements
-- Code follows your established patterns
-- Reviews check your specific quality standards
+### 📝 **Persistent Knowledge**
+- All work saved in scratchpad files
+- Easy to resume interrupted work
+- Complete audit trail of decisions
 
-### Project Awareness
+### 🔄 **Version Controlled**
+- Project context evolves with your code
+- Team shares same standards and requirements
+- No global state to manage
+
+### ⚡ **Zero Setup Overhead**
+- No installation scripts or global configuration
+- Just add CLAUDE.md and run `/init`
+- Works immediately in any Claude Code project
+
+## Working with Multiple Projects
+
+Each project has its own context:
+
 ```bash
-cstatus  # Shows active project and workflow status
+# Project A
+cd project-a
+/plan 123  # Uses project-a's context and standards
+
+# Project B  
+cd project-b
+/plan 456  # Uses project-b's context and standards
 ```
 
-## Multiple Projects
+## Advanced Features
 
+### Epic Planning
 ```bash
-# Switch projects easily
-cproject project-a
-cplan 123  # Uses project-a context
+/epic user-authentication  # Creates epic-level planning document
+```
 
-cproject project-b  
-cplan 456  # Uses project-b context
+### Team Collaboration
+- Context files are version controlled and shared
+- Scratchpad files can be committed for collaboration
+- Logs provide team activity visibility
+
+## File Organization
+
+**What gets version controlled:**
+```
+workflow/context/  # Your project configuration
+CLAUDE.md         # The workflow commands
+```
+
+**What gets ignored by git:**
+```
+workflow/logs/        # Activity logs
+workflow/scratchpad/  # Work files (unless you want to share them)
 ```
 
 ## Troubleshooting
 
-### No Project Context Found
-```
-No project context found. Set CLAUDE_PROJECT_NAME or run from project directory.
-```
-**Solution**: Run `cproject [name]` to setup project structure
+### "Workflow not initialized"
+**Solution:** Run `/init` in your project directory
 
-### Commands Not Found
-```
-command not found: cplan
-```
-**Solution**: Run `source ~/.bashrc` to activate commands
+### "No plan found for issue"
+**Solution:** Run `/plan <issue_number>` first
 
-### Missing Project Documents
-**Solution**: 
-```bash
-# Copy templates to your project
-cp ~/.claude/templates/project-documents/* ~/.claude/projects/YOUR_PROJECT/
-```
+### "Context files missing"
+**Solution:** Edit the files in `./workflow/context/` with your project details
 
-## Next Steps
+### Commands not working
+**Solution:** Ensure `CLAUDE.md` is in your project root directory
 
-- See `README.md` for complete documentation
-- See `PROJECT-CONTEXT-GUIDE.md` for advanced project setup
-- Edit your project documents to match your team's needs
-- Start planning your first issue with `cplan [issue-number]`
+## Best Practices
+
+1. **Keep context updated** - Your agents are only as good as your documentation
+2. **Commit context files** - Share standards across your team
+3. **Review scratchpad files** - They contain valuable planning and decisions
+4. **Use descriptive issue numbers** - Makes tracking easier
+
+## What's Different from Traditional Workflows
+
+**Traditional:**
+- Manual context switching
+- Inconsistent decision making
+- Lost knowledge between phases
+- Global configuration headaches
+
+**Claude Dev Workflow:**
+- Automatic context loading
+- Consistent AI-powered decisions
+- Persistent knowledge in scratchpad
+- Zero global configuration
 
 ---
 
-You now have AI agents that understand your specific project and can make decisions aligned with your team's goals, tech stack, and standards.
+**Ready to start?** Copy `CLAUDE.md` to your project and run `/init`!
+
+Your first planning session is just `/plan [issue-number]` away.
