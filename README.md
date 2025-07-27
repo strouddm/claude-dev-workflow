@@ -53,24 +53,27 @@ Project Repository
    - Analyzes GitHub issue using project context
    - Creates implementation plan aligned with PRD
    - Saves to `./workflow/scratchpad/issue-123/plan.md`
+   - **Updates GitHub issue with plan and labels**
 
 2. **Development Phase** (`/dev 123`)
    - Reads plan and project standards
-   - Provides step-by-step implementation guidance
-   - Saves to `./workflow/scratchpad/issue-123/development.md`
+   - Implements solution following guidance
+   - Creates feature branch and commits code
+   - **Automatically creates GitHub PR**
 
 3. **Review Phase** (`/review 456 123`)
    - Reviews PR against project requirements
+   - **Checks CI/CD pipeline status**
    - Provides actionable feedback with priorities
-   - Saves to `./workflow/scratchpad/issue-123/review.md`
+   - **Posts review to GitHub with merge recommendation**
 
 ## Quick Start
 
 ### Prerequisites
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed
-- GitHub CLI (`gh`) installed (optional but recommended)
-- Git repository initialized
+- GitHub CLI (`gh`) installed and authenticated (required for GitHub integration)
+- Git repository initialized with GitHub remote
 
 ### Setup (30 seconds)
 

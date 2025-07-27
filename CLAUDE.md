@@ -48,10 +48,15 @@ Load and incorporate these project documents:
    - Success metrics and validation approach
 3. Save plan to ./workflow/scratchpad/issue-{issue_number}/plan.md
 4. Log activity to ./workflow/logs/planning.jsonl
+5. Update GitHub issue with the plan:
+   - Add comment with implementation plan summary
+   - Add relevant labels (e.g., "planned", "ready-for-dev")
+   - Update issue description if needed
+   - Use: `gh issue comment {issue_number} --body-file ./workflow/scratchpad/issue-{issue_number}/plan.md`
 
 **Format the plan clearly for the engineering team with sections for requirements, acceptance criteria, technical approach, and risks.**
 
-Display: "📋 Plan created for issue #{issue_number}. Next: /dev {issue_number}"
+Display: "📋 Plan created and posted to issue #{issue_number}. Next: /dev {issue_number}"
 
 ---
 
@@ -76,6 +81,13 @@ Load project context and previous work:
 3. Provide step-by-step implementation guidance
 4. Save development notes to ./workflow/scratchpad/issue-{issue_number}/development.md
 5. Log activity to ./workflow/logs/development.jsonl
+6. Implement the solution and create pull request:
+   - Create feature branch: `git checkout -b feature/issue-{issue_number}-[description]`
+   - Implement code changes following the guidance
+   - Commit changes with descriptive messages
+   - Push branch: `git push -u origin feature/issue-{issue_number}-[description]`
+   - Create PR: `gh pr create --title "Fix #{issue_number}: [Description]" --body-file ./workflow/scratchpad/issue-{issue_number}/development.md --base main`
+   - Link to issue: `gh pr edit --add-label "issue-{issue_number}"`
 
 **Ensure implementation follows:**
 - Project tech stack requirements
@@ -83,7 +95,7 @@ Load project context and previous work:
 - Architecture patterns established in project
 - Testing and quality requirements
 
-Display: "🔧 Development guidance created for issue #{issue_number}. Next: /review [pr_number] {issue_number}"
+Display: "🔧 Development complete and PR created for issue #{issue_number}. Next: /review [pr_number] {issue_number}"
 
 ---
 
@@ -100,7 +112,12 @@ Load complete project context and workflow history:
 
 **Task:**
 1. Review GitHub PR #{pr_number} comprehensively
-2. Evaluate against project criteria:
+2. Check CI/CD status and test results:
+   - Run: `gh pr checks {pr_number}`
+   - Review failed checks and test results
+   - Analyze build logs for warnings or issues
+   - Check code coverage reports
+3. Evaluate against project criteria:
    - Code quality meets coding standards
    - Architecture aligns with tech stack decisions
    - Security follows project guidelines
@@ -108,14 +125,22 @@ Load complete project context and workflow history:
    - Tests are adequate per project standards
    - Documentation is complete and accurate
    - Alignment with original business requirements
-3. Provide specific, actionable feedback with priority levels:
+   - CI/CD pipeline passes all checks
+4. Provide specific, actionable feedback with priority levels:
    - **Must Fix** (blocking issues that prevent merge)
    - **Should Fix** (important improvements for code quality)
    - **Consider** (optional enhancements for future iterations)
-4. Save review to ./workflow/scratchpad/issue-{issue_number}/review.md
-5. Log activity to ./workflow/logs/review.jsonl
+5. Save review to ./workflow/scratchpad/issue-{issue_number}/review.md
+6. Log activity to ./workflow/logs/review.jsonl
+7. Post review to GitHub PR:
+   - Add review comments: `gh pr review {pr_number} --comment --body-file ./workflow/scratchpad/issue-{issue_number}/review.md`
+   - Add merge recommendation at the end of review:
+     - ✅ **READY TO MERGE** - All checks pass, code quality excellent
+     - 🔄 **NEEDS CHANGES** - Must fix issues before merge
+     - ⚠️ **MERGE WITH CAUTION** - Minor issues but can proceed
+   - Do NOT merge - only provide recommendation
 
-Display: "📝 Review complete for PR #{pr_number}. Check ./workflow/scratchpad/ for detailed feedback."
+Display: "📝 Review complete for PR #{pr_number} with merge recommendation. Check GitHub PR for detailed feedback."
 
 ---
 

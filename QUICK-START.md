@@ -8,6 +8,19 @@ Transforms your development process with AI agents that understand your project 
 - **Engineer** (`/dev`) - Provides development guidance following your standards  
 - **Manager** (`/review`) - Reviews code against your project requirements
 
+## Prerequisites
+
+- Claude Code installed
+- GitHub CLI (`gh`) installed and authenticated:
+  ```bash
+  # Install GitHub CLI (if needed)
+  brew install gh  # macOS
+  # or see: https://cli.github.com/
+  
+  # Authenticate with GitHub
+  gh auth login
+  ```
+
 ## 1-Minute Setup
 
 ### Step 1: Add to Your Project
@@ -60,18 +73,20 @@ code ./workflow/context/project-charter.md
 - Agent reads your PRD, tech stack, and project goals
 - Creates detailed implementation plan
 - Saves to `./workflow/scratchpad/issue-123/plan.md`
-- Shows: "📋 Plan created for issue #123"
+- **Updates GitHub issue with plan and adds "ready-for-dev" label**
+- Shows: "📋 Plan created and posted to issue #123"
 
 ### Development Phase  
 ```bash
-# Get implementation guidance following your standards
+# Implement solution and create PR
 /dev 123
 ```
 **What happens:**
 - Agent reads the plan and your coding standards
-- Provides step-by-step development guidance
-- Includes branch naming, architecture patterns, testing approach
-- Saves to `./workflow/scratchpad/issue-123/development.md`
+- Implements the solution following guidance
+- Creates feature branch and commits changes
+- **Automatically creates GitHub PR linked to issue**
+- Shows: "🔧 Development complete and PR created"
 
 ### Review Phase
 ```bash
@@ -80,9 +95,10 @@ code ./workflow/context/project-charter.md
 ```
 **What happens:**
 - Agent reviews the PR using your project context
-- Checks code quality, architecture alignment, security
+- **Checks CI/CD pipeline status and test results**
 - Provides prioritized feedback (Must Fix, Should Fix, Consider)
-- Saves to `./workflow/scratchpad/issue-123/review.md`
+- **Posts review to GitHub with merge recommendation**
+- Shows: "📝 Review complete with merge recommendation"
 
 ## Checking Your Progress
 
